@@ -1,0 +1,24 @@
+{
+  "name": "advanced-gulp-wordpress",
+  "version": "0.0.0",
+  "authors": [
+    "Jiangang Lu"
+  ],
+  "description": "Advanced Gulp WordPress",
+  "keywords": [
+    "Advanced",
+    "Gulp",
+    "WordPress"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6"
+  }
+}
