@@ -129,7 +129,7 @@ gulp.task('styles', function() {
  * Scripts: Vendors
  *
  * Look at src/js and concatenate those files, send them to assets/js where we then minimize the concatenated file.
-*/
+ */
 gulp.task('vendorsJs', function() {
   return gulp.src(['./assets/js/vendor/*.js', bower + '**/*.js'])
     .pipe(concat('vendors.js'))
@@ -170,7 +170,7 @@ gulp.task('images', function() {
   // Add the newer pipe to pass through newer images only
   return gulp.src(['./assets/img/raw/**/*.{png,jpg,gif}'])
     .pipe(newer('./assets/img/'))
-    .pipe(rimraf({force: true}))
+    // .pipe(rimraf({force: true}))
     .pipe(imagemin({optimizationLevel: 7, progressive: true, interlaced: true}))
     .pipe(gulp.dest('./assets/img/'))
     .pipe(notify({message: 'Images task complete', onLast: true}));
