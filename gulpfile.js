@@ -1,10 +1,5 @@
 ﻿/**
  * Gulpfile setup
- *
- * @since 1.0.0
- * @authors Ahmad Awais, @digisavvy, @desaiuditd, @jb510, @dmassiani and @Maxlopez
- * @package wordpress
- * @forks _s & some-like-it-neat
  */
 
 // Project configuration
@@ -33,7 +28,8 @@ var project      = 'advanced-gulp-wordpress', // Project name, used for build zi
       '!assets/bower_components/**/*',
       '!style.css.map',
       '!assets/js/custom/*',
-      '!assets/css/patrials/*'
+      '!assets/css/patrials/*',
+      '!assets/vendor/**/*'
 
     ];
 
@@ -131,7 +127,7 @@ gulp.task('styles', function() {
  * Look at src/js and concatenate those files, send them to assets/js where we then minimize the concatenated file.
  */
 gulp.task('vendorsJs', function() {
-  return gulp.src(['./assets/js/vendor/*.js', bower + '**/*.js'])
+  return gulp.src(['./assets/vendor/**/*.js', '!assets/vendor/**/*.min.js'])
     .pipe(concat('vendors.js'))
     .pipe(gulp.dest('./assets/js'))
     .pipe(rename({
@@ -249,7 +245,7 @@ gulp.task('buildZip', function() {
 
 // Package Distributable Theme
 gulp.task('build', function(cb) {
-  runSequence('styles', 'cleanup', 'vendorsJs', 'scriptsJs',  'buildFiles', 'buildImages', 'buildZip','cleanupFinal', cb);
+  runSequence('styles', 'cleanup', 'vendorsJs', 'scriptsJs', 'buildImages', 'buildFiles', 'buildZip','cleanupFinal', cb);
 });
 
 
