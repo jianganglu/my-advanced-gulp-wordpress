@@ -3,10 +3,10 @@
  */
 
 // Project configuration
-var project      = 'advanced-gulp-wordpress', // Project name, used for build zip.
-    url          = 'http://localhost:8080/wordpress', // Local Development URL for BrowserSync. Change as-needed.
+var project      = 'official-website-templates', // Project name, used for build zip.
+    url          = 'http://localhost:8080/official-website-templates', // Local Development URL for BrowserSync. Change as-needed.
     bower        = './assets/bower_components/'; // Not truly using this yet, more or less playing right now. TO-DO Place in Dev branch
-    build        = './buildtheme/', // Files that you want to package into a zip go here
+    build        = './official-website-templates/', // Files that you want to package into a zip go here
     buildInclude = [
       // include common file types
       '**/*.php',
@@ -31,6 +31,13 @@ var project      = 'advanced-gulp-wordpress', // Project name, used for build zi
       '!assets/css/patrials/*',
       '!assets/vendor/**/*'
 
+    ],
+    pageJs = [
+      'index',
+      'header',
+      'fixNav',
+      'backToTop',
+      'contact'
     ];
 
 // Load plugins
@@ -41,6 +48,7 @@ var gulp         = require('gulp'),
     minifycss    = require('gulp-uglifycss'),
     filter       = require('gulp-filter'),
     uglify       = require('gulp-uglify'),
+    amdOptimize  = require('amd-optimize'),
     imagemin     = require('gulp-imagemin'),
     newer        = require('gulp-newer'),
     rename       = require('gulp-rename'),
@@ -127,7 +135,7 @@ gulp.task('styles', function() {
  * Look at src/js and concatenate those files, send them to assets/js where we then minimize the concatenated file.
  */
 gulp.task('vendorsJs', function() {
-  return gulp.src(['./assets/vendor/**/*.js', '!assets/vendor/**/*.min.js'])
+  return gulp.src(['./assets/vendor/require/*.js'])
     .pipe(concat('vendors.js'))
     .pipe(gulp.dest('./assets/js'))
     .pipe(rename({
@@ -155,6 +163,24 @@ gulp.task('scriptsJs', function() {
     .pipe(uglify())
     .pipe(gulp.dest('./assets/js/'))
     .pipe(notify({ message: 'Custom scripts task complete', onLast: true }));
+});
+
+gulp.task('rjs', function() {
+  var pageJsOfNumber = pageJs.length,
+      i = 0;
+
+  for(; i < pageJsOfNumber; i++) {
+    gulp.src('./assets/js/custom/*.js', {base: 'assets'})
+      .pipe(amdOptimize('./assets/js/custom/' + pageJs[i], {
+        configFile: './assets/js/base.js'
+      }))
+      .pipe(concat(pageJs[i] + ".js"))
+      .pipe(gulp.dest('./assets/js'))
+      .pipe(rename(pageJs[i] + '.min.js'))
+      .pipe(uglify())
+      .pipe(gulp.dest('./assets/js'));
+  }
+  
 });
 
 /**
@@ -245,14 +271,14 @@ gulp.task('buildZip', function() {
 
 // Package Distributable Theme
 gulp.task('build', function(cb) {
-  runSequence('styles', 'cleanup', 'vendorsJs', 'scriptsJs', 'buildImages', 'buildFiles', 'buildZip','cleanupFinal', cb);
+  runSequence('styles', 'cleanup', 'vendorsJs', 'rjs', 'buildImages', 'buildFiles', 'buildZip','cleanupFinal', cb);
 });
 
 
 // Watch Task
-gulp.task('default', ['styles', 'vendorsJs', 'scriptsJs', 'images', 'browser-sync'], function () {
+gulp.task('default', ['styles', 'vendorsJs', 'rjs', 'images', 'browser-sync'], function () {
   gulp.watch('./assets/img/raw/**/*', ['images']); 
   gulp.watch('./assets/css/**/*.scss', ['styles']);
-  gulp.watch('./assets/js/**/*.js', ['scriptsJs', browserSync.reload]);
+  gulp.watch('./assets/js/**/*.js', ['rjs', browserSync.reload]);
 
 });
