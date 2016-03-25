@@ -7,5 +7,5 @@
 /style.css.map
 /assets/js/vendors.js
 /assets/js/vendors.min.js
-/assets/js/custom.js
-/assets/js/custom.min.js
+/assets/js/*
+!/assets/js/custom

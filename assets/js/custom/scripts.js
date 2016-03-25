@@ -1,3 +1,5 @@
 ﻿;(function() {
-  console.log('scripts');
+  require(['jquery'], function($) {
+    console.log('scripts');
+  })
 })();

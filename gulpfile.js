@@ -3,10 +3,10 @@
  */
 
 // Project configuration
-var project      = 'official-website-templates', // Project name, used for build zip.
-    url          = 'http://localhost:8080/official-website-templates', // Local Development URL for BrowserSync. Change as-needed.
-    bower        = './assets/bower_components/'; // Not truly using this yet, more or less playing right now. TO-DO Place in Dev branch
-    build        = './official-website-templates/', // Files that you want to package into a zip go here
+var project      = 'wordpress', // Project name, used for build zip.
+    url          = 'http://localhost:8090/wordpress', // Local Development URL for BrowserSync. Change as-needed.
+    bower        = './assets/bower_components/', // Not truly using this yet, more or less playing right now. TO-DO Place in Dev branch
+    build        = './wordpress/', // Files that you want to package into a zip go here
     buildInclude = [
       // include common file types
       '**/*.php',
@@ -33,11 +33,7 @@ var project      = 'official-website-templates', // Project name, used for build
 
     ],
     pageJs = [
-      'index',
-      'header',
-      'fixNav',
-      'backToTop',
-      'contact'
+      'scripts'
     ];
 
 // Load plugins
@@ -135,7 +131,7 @@ gulp.task('styles', function() {
  * Look at src/js and concatenate those files, send them to assets/js where we then minimize the concatenated file.
  */
 gulp.task('vendorsJs', function() {
-  return gulp.src(['./assets/vendor/require/*.js'])
+  return gulp.src(['./assets/vendor/require/require.js'])
     .pipe(concat('vendors.js'))
     .pipe(gulp.dest('./assets/js'))
     .pipe(rename({
@@ -279,6 +275,6 @@ gulp.task('build', function(cb) {
 gulp.task('default', ['styles', 'vendorsJs', 'rjs', 'images', 'browser-sync'], function () {
   gulp.watch('./assets/img/raw/**/*', ['images']); 
   gulp.watch('./assets/css/**/*.scss', ['styles']);
-  gulp.watch('./assets/js/**/*.js', ['rjs', browserSync.reload]);
+  gulp.watch('./assets/js/custom/*.js', ['rjs', browserSync.reload]);
 
 });
