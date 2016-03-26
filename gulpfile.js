@@ -32,12 +32,11 @@ var project      = 'wordpress', // Project name, used for build zip.
       '!assets/vendor/**/*'
 
     ],
-    pageJs = [
-      'scripts'
-    ];
+    customs = [];
 
 // Load plugins
 var gulp         = require('gulp'),
+    glob         = require('glob'),
     browserSync  = require('browser-sync'), // Asynchronous browser loading on .scss file changes
     reload       = browserSync.reload,
     autoprefixer = require('gulp-autoprefixer'), // Autoprefixing magic
@@ -97,7 +96,11 @@ gulp.task('browser-sync', function() {
 */
 gulp.task('styles', function() {
   gulp.src('./assets/css/*.scss')
-    .pipe(plumber())
+    .pipe(plumber({
+      errorHandler: function (error) {
+        console.log(error.message);
+        this.emit('end');
+    }}))
     .pipe(sourcemaps.init())
     .pipe(sass({
       errLogToConsole: true,
@@ -150,6 +153,11 @@ gulp.task('vendorsJs', function() {
 */
 gulp.task('scriptsJs', function() {
   return gulp.src('./assets/js/custom/*.js')
+    .pipe(plumber({
+      errorHandler: function (error) {
+        console.log(error.message);
+        this.emit('end');
+    }}))
     .pipe(concat('custom.js'))
     .pipe(gulp.dest('./assets/js'))
     .pipe(rename( {
@@ -162,21 +170,31 @@ gulp.task('scriptsJs', function() {
 });
 
 gulp.task('rjs', function() {
-  var pageJsOfNumber = pageJs.length,
-      i = 0;
+  glob('./assets/js/custom/*.js', function(er, file) {
+    customs = file;
 
-  for(; i < pageJsOfNumber; i++) {
-    gulp.src('./assets/js/custom/*.js', {base: 'assets'})
-      .pipe(amdOptimize('./assets/js/custom/' + pageJs[i], {
-        configFile: './assets/js/base.js'
-      }))
-      .pipe(concat(pageJs[i] + ".js"))
-      .pipe(gulp.dest('./assets/js'))
-      .pipe(rename(pageJs[i] + '.min.js'))
-      .pipe(uglify())
-      .pipe(gulp.dest('./assets/js'));
-  }
-  
+    var customsOfNumber = customs.length;
+
+    for(var i = 0; i < customsOfNumber; i++) {
+
+      jsFileName = customs[i].substring(customs[i].lastIndexOf('/') + 1, customs[i].length - 3);
+
+      gulp.src('./assets/js/custom/*.js', {base: 'assets'})
+        .pipe(plumber({
+          errorHandler: function (error) {
+            console.log(error.message);
+            this.emit('end');
+        }}))
+        .pipe(amdOptimize('./assets/js/custom/' + jsFileName, {
+          configFile: './assets/js/base.js'
+        }))
+        .pipe(concat(jsFileName + ".js"))
+        .pipe(gulp.dest('./assets/js'))
+        .pipe(rename(jsFileName + '.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('./assets/js'));
+    }
+  });
 });
 
 /**
@@ -273,8 +291,7 @@ gulp.task('build', function(cb) {
 
 // Watch Task
 gulp.task('default', ['styles', 'vendorsJs', 'rjs', 'images', 'browser-sync'], function () {
-  gulp.watch('./assets/img/raw/**/*', ['images']); 
-  gulp.watch('./assets/css/**/*.scss', ['styles']);
-  gulp.watch('./assets/js/custom/*.js', ['rjs', browserSync.reload]);
-
+  gulp.watch('assets/img/raw/**/*', ['images']); 
+  gulp.watch('assets/css/**/*.scss', ['styles']);
+  gulp.watch('assets/js/custom/*.js', ['rjs', browserSync.reload]);
 });
