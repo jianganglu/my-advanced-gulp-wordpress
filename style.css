@@ -1,6 +1,11 @@
-/** Mixins Style */
-body { background: #eee; }
+/*! Helpers */
+/*! Base*/
+/*! Layout */
+body { color: green; }
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3R5bGUuY3NzIiwic291cmNlcyI6WyJzdHlsZS5zY3NzIiwicGFydGlhbHMvX21peGlucy5zY3NzIl0sIm1hcHBpbmdzIjoiQUNBQSxtQkFFRztBQUVILElBQUksQ0FBQyxFQUNILFVBQVUsRUFBRSxJQUFLLEdBQ2xCIiwibmFtZXMiOltdfQ== */
+/*! Components */
+/*! Pages*/
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3R5bGUuY3NzIiwic291cmNlcyI6WyJzdHlsZS5zY3NzIiwicGFydGlhbHMvbGF5b3V0L19oZWFkZXIuc2NzcyJdLCJtYXBwaW5ncyI6IkFBQUEsY0FBYztBQUdkLFVBQVU7QUFHVixhQUFhO0FDTmIsSUFBSSxDQUFDLEVBQ0gsS0FBSyxFQUFFLEtBQU0sR0FDZDs7QURTRCxpQkFBaUI7QUFHakIsV0FBVyIsIm5hbWVzIjpbXX0= */
 
 /*# sourceMappingURL=style.css.map */
