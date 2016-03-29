@@ -292,6 +292,6 @@ gulp.task('build', function(cb) {
 // Watch Task
 gulp.task('default', ['styles', 'vendorsJs', 'rjs', 'images', 'browser-sync'], function () {
   gulp.watch('assets/img/raw/**/*', ['images']); 
-  gulp.watch('assets/css/**/*.scss', ['styles']);
+  gulp.watch('assets/css/**/**/*.scss', ['styles']);
   gulp.watch('assets/js/custom/*.js', ['rjs', browserSync.reload]);
 });
