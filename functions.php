@@ -1,5 +1,104 @@
 ﻿<?php
 
+// Theme-specific files
+if( function_exists( 'register_nav_menus' ) ) {
+  register_nav_menus(array(
+    'primary' => __('主导航', 'templ')
+  ));
+}
+/* WordPress后台禁用Google Open Sans字体，加速网站
+--------------------------------------------------- */
+function remove_open_sans() {
+  wp_deregister_style( 'open-sans' );
+  wp_register_style( 'open-sans', false );
+  wp_enqueue_style( 'open-sans', '' );
+}
+
+// 添加特色缩略图支持
+if( function_exists( 'add_theme_support' ) ) add_theme_support( 'post-thumbnails' );
+
+// 输出缩略图地址From wpdaxue.com
+function post_thumbnail_src() {
+  global $post;
+  if( $value = get_post_custom_value( 'thumb' ) ) {
+    $value = get_post_custom_value( 'thumb' );
+    $post_thumbnail_src = $value[0];
+  }elseif( has_post_thumbnail() ) {
+    $thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+    $post_thumbnail_src = $thumbnail_src[0];
+  }else {
+    $post_thumbnail_src = '';
+    ob_start();
+    ob_end_clean();
+    $output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].">/i', $post->post_content, $matches );
+    $post_thumbnail_src = $matches[1][0]; // 获取该图片src
+    if( empty( $post_thumbnail_src ) ) {
+      $random = mt_rand(1, 10);
+      echo get_bloginfo( 'template_url' );
+      echo '/images/pic/'.$random.'.jpg';
+      // 如果日志中没有图片，则显示默认图片
+      // echo '/images/default_thumb.jpg'
+    }
+  };
+  echo $post_thumbnail_src;
+}
+
+// 翻页
+function par_pagenavi( $range = 9 ) {
+  global $paged, $wp_query;
+  if( !$max_page ) {$max_page = $wp_query->max_num_page;}
+  if( $max_page > 1 ) {if( $paged ) {$paged = 1;}}
+  if($paged != 1) {echo "<a class="extend" title='跳转到首页' href='".get_pagenum_link(1)."'>返回首页</a>";}
+  previous_posts_link( '上一页' );
+  if( $max_page > $range ) {
+    if( $paged < $range ) {
+      for($i = 1; $i <= ($range + 1); $i++) {
+        echo "<a href='".get_pagenum_link($i)."'";
+        if($i == $paged) echo " class='current'";echo ">$i</a>";
+      }
+    }
+  }elseif($paged >= ($max_page - ceil(($range/2)))) {
+    for($i = $max_page - $range; $i <= $max_page; $i++) {
+      echo "<a href='".get_pagenum_link($i)."'";
+      if($i==$paged)echo " class='current'";echo ">$i</a>";
+    }
+  }elseif($paged >= $range && $paged < ($max_page - ceil(($range/2)))) {
+    for($i = ($paged - ceil($range/2)); $i <= ($paged + ceil($range/2)); $i++) {
+      echo "<a href='".get_pagenum_link($i)."'";
+      if($i==$paged) echo " class='current'";echo ">$i</a>";
+    }
+  }else {
+    for($i = 1; $i <= $max_page; $i++) {
+      echo "<a href='".get_pagenum_link($i)."'";
+      if($i == $paged) echo " class='current'"; echo ">$i</a>"
+    }
+  }
+  next_posts_link( '下一页' );
+  if($paged != $max_page){
+    echo "<a href='".get_pagenum_link($max_page)."' class='extend' title='跳转到最后一页'>最后一页</a>"
+  }
+}
+
+if(function_exists('register_sidebar')) {
+  register_sidebar(array(
+    'before_widget' => '<div class="sw-menu">',
+    'after_widget'  => '</div>',
+    'before_title'  => '<h3>',
+    'after_title'   => '</h3>'
+  ));
+}
+
+// 开启友情链接
+add_filter( 'pre_option_link_manager_enabled', '__return_true' );
+
+// 登录用户浏览站点时不显示工具栏
+add_filter( 'show_admin_bar', '__return_false' );
+
+// 移除自动保存
+function tin_disable_autosave() {
+  wp_deregister_script( 'autosave' );
+}
+
 function tmpl_register_nav() {
   /**
    * 注册导航

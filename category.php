@@ -1,9 +1,9 @@
 ﻿<?php get_header(); ?>
-<h1>示例页面</h1>
-<?php the_title_attribute();?>
+您的位置：<a href="<?php bloginfo( 'url' ); ?>">首页</a> / <?php the_category(); ?>
+<?php
 if( have_posts() ) :
   while( have_posts() ) : the_post();
-    the_content();
+    the_title();
   endwhile;
 endif;
 ?>

@@ -32,3 +32,8 @@
     <?php get_search_form(); ?>
     <?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
     <?php wp_nav_menu( array( 'theme_location' => 'secondary' ) ); ?>
+    <?php
+      if( function_exists( 'wp_nav_menu' ) ) {
+        wp_nav_menu(array( 'theme_location' => 'primary', 'menu_id' => 'nav', 'container' => 'ul' ));
+      }
+    ?>
