@@ -186,7 +186,7 @@ gulp.task('rjs', function() {
             this.emit('end');
         }}))
         .pipe(amdOptimize('./assets/js/custom/' + jsFileName, {
-          configFile: './assets/js/base.js'
+          configFile: './assets/js/custom/base.js'
         }))
         .pipe(concat(jsFileName + ".js"))
         .pipe(gulp.dest('./assets/js'))
