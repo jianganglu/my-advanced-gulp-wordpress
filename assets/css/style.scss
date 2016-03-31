@@ -1,15 +1,13 @@
-﻿/*! Base */
-@import
-  './partials/base/base-style'
-, './partials/base/blue'
-;
-
-/*! Helpers */
+﻿/*! Helpers */
 @import 
   './partials/helpers/variables'
 ;
 
-/*! Base*/
+/*! Base */
+@import
+  './partials/base/base-style'
+, './partials/base/blue'
+;
 
 
 /*! Layout */
@@ -23,7 +21,6 @@
 @import
   './partials/components/component'
 ;
-
 
 /*! Pages*/
 @import 
