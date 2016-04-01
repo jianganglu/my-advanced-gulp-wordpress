@@ -1,6 +1,7 @@
 ﻿;(function() {
-  require(['jquery', 'isotope'],
-    function($) {
+  require(['jquery', 'isotope', 'bridget'],
+    function($, Isotope) {
+      $.bridget('isotope', Isotope);
       // Isotope filters
       //-----------------------------------------------
       if ($('.isotope-container').length>0 || $('.masonry-grid').length>0 || $('.masonry-grid-fitrows').length>0) {

@@ -88,7 +88,36 @@ gulp.task('browser-sync', function() {
 });
 
 /**
- * Styles
+ * Styles: Vendor
+ */
+gulp.task('vendorStyles', function() {
+  gulp.src(['./assets/vendor/**/*.css', '!assets/vendor/**/*.min.css'])
+    .pipe(plumber({
+      errorHandler: function (error) {
+        console.log(error.message);
+        this.emit('end');
+    }}))
+    .pipe(sourcemaps.init())
+    .pipe(concat('libs.css'))
+    .pipe(sourcemaps.write({includeContent: false}))
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(autoprefixer('last 2 version', '> 1%', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(sourcemaps.write('./'))
+    .pipe(plumber.stop())
+    .pipe(gulp.dest('./assets/css/'))
+    .pipe(cmq()) // Combines Media Queries
+    .pipe(reload({stream:true})) // Inject Styles when style file is created
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(minifycss({
+      maxLineLen: 80
+    }))
+    .pipe(gulp.dest('./assets/css/'))
+    .pipe(reload({stream:true})) // Inject Styles when min style file is created
+    .pipe(notify({ message: 'Styles task complete', onLast: true }));
+});
+
+/**
+ * Styles: custom
  *
  * Looking at src/sass and compiling the files into Expanded format, Autoprefixing and sending the files to the build folder
  *
@@ -285,13 +314,14 @@ gulp.task('buildZip', function() {
 
 // Package Distributable Theme
 gulp.task('build', function(cb) {
-  runSequence('styles', 'cleanup', 'vendorsJs', 'rjs', 'buildImages', 'buildFiles', 'buildZip','cleanupFinal', cb);
+  runSequence('vendorStyles', 'styles', 'cleanup', 'vendorsJs', 'rjs', 'buildImages', 'buildFiles', 'buildZip','cleanupFinal', cb);
 });
 
 
 // Watch Task
-gulp.task('default', ['styles', 'vendorsJs', 'rjs', 'images', 'browser-sync'], function () {
-  gulp.watch('assets/img/raw/**/*', ['images']); 
+gulp.task('default', ['vendorStyles', 'styles', 'vendorsJs', 'rjs', 'images', 'browser-sync'], function () {
+  gulp.watch('assets/img/raw/**/*', ['images']);
+  gulp.watch('assets/vendor/**/*', ['vendorStyles']);
   gulp.watch('assets/css/**/**/*.scss', ['styles']);
   gulp.watch('assets/js/custom/*.js', ['rjs', browserSync.reload]);
 });

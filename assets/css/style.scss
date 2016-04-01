@@ -1,13 +1,15 @@
-﻿/*! Helpers */
-@import 
-  './partials/helpers/variables'
-;
-
-/*! Base */
+﻿/*! Base */
 @import
   './partials/base/base-style'
 , './partials/base/blue'
 ;
+
+/*! Helpers */
+@import 
+  './partials/helpers/variables'
+;
+
+/*! Base*/
 
 
 /*! Layout */
@@ -20,7 +22,10 @@
 /*! Components */
 @import
   './partials/components/component'
+, './partials/components/animate'
+, './partials/components/breadcrumb'
 ;
+
 
 /*! Pages*/
 @import 
@@ -30,4 +35,5 @@
 , './partials/pages/page2'
 , './partials/pages/about'
 , './partials/pages/contact'
+, './partials/pages/service'
 ;

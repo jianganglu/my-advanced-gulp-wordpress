@@ -9,3 +9,7 @@
 /assets/js/vendors.min.js
 /assets/js/*
 !/assets/js/custom
+/assets/css/libs.css.map
+/assets/css/libs.css.min.map
+/assets/css/libs.min.css
+/assets/css/libs.css
