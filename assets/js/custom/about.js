@@ -1,6 +1,9 @@
 ﻿;(function() {
   require(['jquery', 'bootstrap', 'countTo'],
     function($) {
+
+      console.log(typeof $);
+
       // Stats Count To
       //-----------------------------------------------
       if ($('.stats [data-to]').length > 0) {

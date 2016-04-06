@@ -44,6 +44,7 @@ var gulp         = require('gulp'),
     filter       = require('gulp-filter'),
     uglify       = require('gulp-uglify'),
     amdOptimize  = require('amd-optimize'),
+    gulpMerge    = require('gulp-merge'),
     imagemin     = require('gulp-imagemin'),
     newer        = require('gulp-newer'),
     rename       = require('gulp-rename'),
@@ -208,20 +209,25 @@ gulp.task('rjs', function() {
 
       jsFileName = customs[i].substring(customs[i].lastIndexOf('/') + 1, customs[i].length - 3);
 
-      gulp.src('./assets/js/custom/*.js', {base: 'assets'})
-        .pipe(plumber({
-          errorHandler: function (error) {
-            console.log(error.message);
-            this.emit('end');
-        }}))
-        .pipe(amdOptimize('./assets/js/custom/' + jsFileName, {
-          configFile: './assets/js/custom/base.js'
-        }))
-        .pipe(concat(jsFileName + ".js"))
-        .pipe(gulp.dest('./assets/js'))
-        .pipe(rename(jsFileName + '.min.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest('./assets/js'));
+      gulpMerge(
+        gulp.src('./assets/vendor/require/require.js')
+          .pipe(concat('require.js')),
+        gulp.src('./assets/js/custom/*.js', {base: 'assets'})
+          .pipe(plumber({
+            errorHandler: function (error) {
+              console.log(error.message);
+              this.emit('end');
+          }}))
+          .pipe(amdOptimize('./assets/js/custom/' + jsFileName, {
+            configFile: './assets/js/custom/base.js'
+          }))
+          .pipe(concat(jsFileName + ".js"))
+      )
+      .pipe(concat(jsFileName + ".js"))
+      .pipe(gulp.dest('./assets/js'))
+      .pipe(rename(jsFileName + '.min.js'))
+      .pipe(uglify())
+      .pipe(gulp.dest('./assets/js'));
     }
   });
 });

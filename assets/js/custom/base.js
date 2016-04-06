@@ -1,6 +1,7 @@
 ﻿requirejs.config({
   baseUrl: '.',
   paths: {
+    require:   'assets/vendor/require/require',
     jquery:    'assets/vendor/jquery/jquery',
     bootstrap: 'assets/vendor/bootstrap/js/bootstrap',
     isotope:   'assets/vendor/isotope/isotope.pkgd',
