@@ -1,0 +1,314 @@
+/* 1 Typography
+----------------------------------------------------------------------------- */
+html {
+    height: 100%;
+}
+body {
+    /* font-family: 'Open Sans', sans-serif; */
+    font-family: Microsoft YaHei,"Helvetica Neue",Helvetica,Tahoma,Arial,sans-serif;
+    font-size: 15px;
+    line-height: 1.50;
+    color: #666666;
+    background-color: #ffffff;
+    .nav-fixed {
+        position: fixed;
+    }
+    .nav-absolute {
+        position: absolute;
+    }
+    .nav-absolute-bottom {
+        position: absolute;
+    }
+}
+body.full-height, body.full-height .page-wrapper {
+    background-color: #fafafa;
+    min-height: 100%;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #343434;
+    line-height: 1.2;
+}
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+    color: #343434;
+}
+h1 {
+    font-size: 38px;
+    font-weight: 700;
+}
+h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+h3 {
+    font-size: 22px;
+}
+h4 {
+    font-size: 18px;
+    font-weight: 700;
+}
+h5 {
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+h6 {
+    font-weight: 700;
+}
+
+/* Medium devices (desktops, tablets, 992px and up) */
+@media (min-width:992px) {
+    .title {
+        margin-top: 0;
+    }
+}
+
+.sidebar .title {
+    margin-bottom: 15px;
+    margin-top: 20px;
+    position: relative;
+}
+.page-header {
+    margin-top: 20px;
+    padding-top: 20px;
+}
+p {
+    margin-bottom: 20px;
+}
+a {
+    color: #e84c3d;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+a:hover {
+    color: #cd3c2e;
+}
+a:focus,
+a:active {
+    outline: none;
+    color: #cd3c2e;
+}
+.no-trans * {
+    -webkit-transition: none !important;
+       -moz-transition: none !important;
+        -ms-transition: none !important;
+         -o-transition: none !important;
+            transition: none !important;
+}
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+blockquote {
+    border-left: none;
+    display: block;
+    margin: 20px auto 20px;
+    font-size: 16px;
+    position: relative;
+    padding: 10px 10px 10px 0px;
+    margin-left: 40px;
+}
+blockquote:after {
+    content: "“";
+    width: 25px;
+    height: 25px;
+    line-height: 64px;
+    font-size: 64px;
+    font-family: 'PT Serif', serif;
+    position: absolute;
+    top: 12px;
+    left: -45px;
+}
+.blockquote:before {
+    font-family: 'PT Serif', serif;
+    content: "“";
+    font-size: 40px;
+}
+blockquote.inline {
+    padding: 0;
+}
+blockquote.inline p {
+    width: 60%;
+    display: inline-block;
+    margin: 0;
+}
+blockquote.inline footer {
+    width: 37%;
+    display: inline-block;
+    padding-left: 5px;
+}
+blockquote.inline:after {
+    top: 0;
+}
+mark,
+.mark {
+    background-color: #e84c3d;
+    color: #ffffff;
+}
+pre {
+    padding: 20px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+.text-muted {
+    color: #999999;
+}
+.text-default {
+    color: #e84c3d;
+}
+.well {
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    background-color: #f3f3f3;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .05);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .05);
+}
+.icons-page i {
+    color: #333;
+    font-size: 20px;
+}
+hr.dark,
+#footer .footer hr {
+    border-color: #333333;
+}
+
+#footer.light hr {
+    border-color: #dddddd;
+}
+
+/* Lists
+---------------------------------- */
+ul {
+    list-style: square;
+}
+.list-icons,
+.list {
+    list-style: none;
+    padding: 0;
+}
+.list-icons li,
+.list li {
+    padding: 5px 0;
+}
+.list-icons li i {
+    width: 25px;
+    text-align: center;
+}
+.list li .vertical-divider {
+    padding-right: 15px;
+    position: relative;
+}
+.list li .vertical-divider:after {
+    position: absolute;
+    content: "";
+    height: 60%;
+    width: 1px;
+    background-color: #CECECE;
+    right: 9px;
+    top: 5px;
+}
+.list-inline {
+    margin-top: 9px;
+    margin-bottom: 8px;
+}
+
+/* Tables
+---------------------------------- */
+.table:not(.table-bordered) {
+    border-bottom: 2px solid #f3f3f3;
+}
+.table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 1px solid #e84c3d;
+    background-color: #e84c3d;
+    color: #fff;
+}
+.table-bordered {
+    border-color: #e84c3d;
+}
+tbody {
+    background-color: #ffffff;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    padding: 8px 15px;
+    border-top: 1px solid #f3f3f3;
+}
+.table-striped tbody {
+    background-color: #fafafa;
+}
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+    background-color: #f1f1f1;
+}
+.table-striped.table > tbody > tr > td {
+    border-color: #e8e8e8;
+}
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+    border-color: #f3f3f3;
+}
+.dl-horizontal dd {
+    margin-bottom: 10px;
+}
+.dark .table:not(.table-bordered) {
+    border-bottom: 2px solid #515151;
+}
+.dark .table > thead > tr > th {
+    border-bottom: 1px solid #27272a;
+    background-color: #27272a;
+    color: #cdcdcd;
+}
+.dark tbody {
+    background-color: transparent;
+}
+.dark .table > thead > tr > th,
+.dark .table > tbody > tr > th,
+.dark .table > tfoot > tr > th,
+.dark .table > thead > tr > td,
+.dark .table > tbody > tr > td,
+.dark .table > tfoot > tr > td {
+    border-top: 1px solid #515151;
+}
+.dark .table-hover > tbody > tr:hover {
+    background-color: #27272a;
+}
+/* Small devices (tablets, 768px and up) */
+@media (min-width:768px) {
+    .dl-horizontal dd {
+        margin-left: 150px;
+    }
+    .dl-horizontal dt {
+        max-width: 120px;
+    }
+}
+
+/* 2 Layout
+----------------------------------------------------------------------------- */
+.page-wrapper {
+    background-color: #ffffff;
+}
+
