@@ -320,12 +320,12 @@ gulp.task('buildZip', function() {
 
 // Package Distributable Theme
 gulp.task('build', function(cb) {
-  runSequence('vendorStyles', 'styles', 'cleanup', 'vendorsJs', 'rjs', 'buildImages', 'buildFiles', 'buildZip','cleanupFinal', cb);
+  runSequence('vendorStyles', 'styles', 'cleanup', 'rjs', 'buildImages', 'buildFiles', 'buildZip','cleanupFinal', cb);
 });
 
 
 // Watch Task
-gulp.task('default', ['vendorStyles', 'styles', 'vendorsJs', 'rjs', 'images', 'browser-sync'], function () {
+gulp.task('default', ['vendorStyles', 'styles', 'rjs', 'images', 'browser-sync'], function () {
   gulp.watch('assets/img/raw/**/*', ['images']);
   gulp.watch('assets/vendor/**/*', ['vendorStyles']);
   gulp.watch('assets/css/**/**/*.scss', ['styles']);
